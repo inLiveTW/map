@@ -1,0 +1,80 @@
+ (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "http://connect.facebook.net/zh_TW/all.js#xfbml=1&appId=485195848253155";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+
+  $.post(
+    'https://graph.facebook.com',
+    {   id: location.href,
+        scrape: true  }, function(response){
+        console.log(response);
+    } 
+  );  // FB API
+
+     function toLabel (hand, i, Icon, year, whichLabel) {
+        if (!whichLabel) return hand.title;
+        var lable = " ";
+        
+        switch (whichLabel) {
+          case 'name':
+              lable += ((hand.title && hand.title) || "");
+          default:
+              break;
+
+        }
+
+                     
+        if (!lable) lable = ' ';   
+        return lable;
+
+     }
+
+     function toFlag(hand, i, Icon) {
+         var flag =  '<div class = "flag">'
+
+                      + hand.title
+
+                      +'</div>';
+            return flag;
+     }
+
+     SKH.init({
+        fbApp: '485195848253155',
+  //      handTitle: '自學朋友',
+  //      shackTitle: '共學揪團',
+        slogen: 'iLiveTW公民記者直播地圖',
+        selectBar: 
+'<input autofocus type="search" class="form-control noPhone" placeholder="輸入地址以定位地圖"ng-model="loc" ng-change = "askGeo(loc)"/>'
++'<input type="search" class="form-control noPhone" placeholder="Search" ng-model="key" ng-change = "clearMarker();makeMarkers();"/>'
+
+        +'<select class = "form-control"'
+                    +'ng-model="whichLable" ng-change = "clearMarker();makeMarkers()">'
+                      +'<option value="">-- 選擇顯示標籤 --</option>'
+                      +'<option value="group">團體</option>'
+                  +'</select>',
+        checkList: [],
+        whiteList: [],        
+        layers: ['公民記者'],
+        urls: ['https://livelink.firebaseio.com/live/'],
+        layerIcons: ['https://www.moedict.tw/公.png?font=wt006'],
+        types: ['jsonObj'],
+        logins:['facebook'],
+        toFlags: [toFlag],
+        toLabels: [toLabel],
+        lang:'zh-tw',
+   //     zoom: 13,
+   //     handsize: 40,
+        listKeys: ['name','note','address','share','ask'], //'connect_me',
+        listKeyNames: {
+          name:'名稱',
+          address:'位於',
+          share: '分享',
+          ask:'尋找',
+          note: '自我介紹'        
+        }
+     });        
+
+        var app = angular.module('demoapp', ['shackhand','FBAngular']);

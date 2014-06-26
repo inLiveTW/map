@@ -1,0 +1,12 @@
+<ul id="skh-sidebarUL" class="nav nav-stacked affix">
+    <li ng-repeat = "h in myWatches track by $index">
+      <a ng-click = "focus(h)" ng-href="#{{h.address}}#{{h.name}}">                
+           <img id = "fb"
+             title = "{{ h.name }}"
+             ng-src="{{(h.id && 'http://graph.facebook.com/' + h.id + '/picture') || h.icon || ''}}"/>
+             {{h.name.slice(0,1)}}...
+      </a>
+      <a ng-click = "toggleWatch(h)">×</a>
+
+    </li>
+</ul>

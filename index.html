@@ -1,55 +1,144 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html ng-app="demoapp">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Map by inLiveTW</title>
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <script src="javascripts/main.js"></script>
-    <!--[if lt IE 9]>
-      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-
-  </head>
-  <body>
-
-      <header>
-        <h1>Map</h1>
-        <p>mapView of inLiveTW</p>
-      </header>
-
-      <div id="banner">
-        <span id="logo"></span>
-
-        <a href="https://github.com/inLiveTW/map" class="button fork"><strong>View On GitHub</strong></a>
-        <div class="downloads">
-          <span>Downloads:</span>
-          <ul>
-            <li><a href="https://github.com/inLiveTW/map/zipball/master" class="button">ZIP</a></li>
-            <li><a href="https://github.com/inLiveTW/map/tarball/master" class="button">TAR</a></li>
-          </ul>
-        </div>
-      </div><!-- end banner -->
-
-    <div class="wrapper">
-      <nav>
-        <ul></ul>
-      </nav>
-      <section>
-        <h1>
-<a name="map" class="anchor" href="#map"><span class="octicon octicon-link"></span></a>map</h1>
-
-<p>mapView of inLiveTW</p>
-      </section>
-      <footer>
-        <p>Project maintained by <a href="https://github.com/inLiveTW">inLiveTW</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></small></p>
-      </footer>
-    </div>
-    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+  
+    <link rel="shortcut icon" href="../favicon.png" />
+    <title>inLiveTW直播地圖 ➭ 朋友就在不遠處</title>
+  
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
-  </body>
+    <meta property="fb:admins" content="100000207390400" />
+    <meta property="fb:app_id" content="485195848253155" />
+    
+    <meta property="og:site_name" content="inLiveTW" />
+    <meta property="og:description" content="inLiveTW直播地圖，就近找夥伴。" />
+    <meta property="og:title" content="inLiveTW直播地圖" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="http://map.alearn.org.tw/we/index.html" />
+    <meta property="og:image" content="http://map.alearn.org.tw/we/img/auto20.jpg" />
+
+<style>
+  [ng\:cloak], [ng-cloak], .ng-cloak {
+    display: none !important;
+  }
+
+</style>
+
+
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-select.min.css">
+
+<!--  <link rel="stylesheet" href="module/src/bootstrap.css" />
+  <link rel="stylesheet" href="module/src/bootstrap-theme.min.css" /> 
+  <link rel="stylesheet" href="module/src/bootstrap-select.min.css" />    -->
+  <link rel="stylesheet" href="module/shackhand-0.1.5.css" />
+
+
+</head>
+
+<body ng-controller="SKH-Ctrl">
+
+
+     <ul id="skh-sidebarUL">
+            <li><span class = "noPhone">近期造訪</span></li>
+            <li ng-repeat = "h in myWatches track by $index" ng-init = "h.nick = h.name.slice(0,1)+'...'" ng-mouseover = "h.nick = h.name"
+  ng-mouseout = "h.nick = h.name.slice(0,1)+'...'">
+              <a ng-click = "focus(h)" ng-href="#{{h.address}}#{{h.name}}" style = "
+  color: #80C345;">                
+                   <img id = "fb"
+                     title = "{{ h.name }}"
+                     ng-src="{{(h.id && 'http://graph.facebook.com/' + h.id + '/picture') || h.icon || ''}}"
+                     class = "small brown noPhone"/>
+                    <span ng-bind = "h.nick"></span>
+              </a>
+              <a ng-click = "toggleWatch(h)" class = "x">×</a>
+            </li>
+        </ul>
+
+  <!-- Navbar -->
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+</div>
+
+  <!-- Navbar Bottom -->
+
+<div class="navbar navbar-inverse navbar-fixed-bottom noPhone" role="navigation" >
+
+
+  <div class="container-fluid">
+      <div class="navbar-header pull-left">
+            <div class = "navbar-left">
+              <a href = "http://g0v.tw" target = "_blank">
+                <img src = "http://g0v.tw/imgs/g0v-horizontal-transparent-darkbackground-m.png"/>
+              </a>
+            </div>
+      </div> 
+      <div class="collapse navbar-collapse">         
+      </div>
+  </div>
+</div>
+
+<div>
+  <div class="container main-container">
+
+    <div class="row noPhone" ng-cloak>
+        <a ng-click = "focus()"><skh-slogen></skh-slogen></a>
+    </div>
+
+
+
+    <div class="row">
+          <skh-localmap></skh-localmap>
+    </div>
+
+
+      </div>
+      <div class = "row noPhone">        
+         <skh-list></skh-list>
+      </div>
+
+
+    </div>
+  </div>
+
+</body>
 </html>
+
+
+    <script src="module/src/jquery-1.10.2.js"></script>
+    <script src="module/src/angular.min.js"></script>
+    <script src="module/src/angular-route.min.js"></script>
+    <script src="module/src/angular-fullscreen.js"></script>
+    <script src="module/src/leaflet.markercluster.js"></script>
+
+    <script src="module/src/leaflet-0.7.1.js"></script>
+    <script src="module/src/angular-leaflet-directive.js"></script>
+
+    <link rel="stylesheet" href="module/src/leaflet.css" />    
+    <link rel="stylesheet" href="module/src/leaflet.ie.css" /> 
+
+    <link rel="stylesheet" href="module/src/leaflet.label.css" />    
+    <script src="module/src/leaflet.label.js"></script>
+
+
+<script src='module/src/firebase.js'></script>
+<script src='module/src/angularfire.min.js'></script>
+<script src='module/src/firebase-simple-login.js'></script>
+<script src="module/src/angular-easyfb.min.js"></script>
+<script src="module/src/ngStorage.js"></script>
+
+
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+<!--
+<script src="module/src/bootstrap.min.js"></script>
+<script src="module/src/bootstrap-select.min.js"></script>
+-->
+
+<script src='module/shackhand-0.1.5.js'></script>
+
+
+<script src='index.js'></script>
+
