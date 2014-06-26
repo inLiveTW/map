@@ -35,17 +35,17 @@
      function toFlag(hand, i, Icon) {
          var flag =  '<div class = "flag">'
 
-                      + hand.title
+                      + (hand.title || hand.name)
 
                       +'</div>';
             return flag;
      }
 
      SKH.init({
-        fbApp: '485195848253155',
-  //      handTitle: '自學朋友',
-  //      shackTitle: '共學揪團',
-        slogen: 'iLiveTW公民記者直播地圖',
+      //  lat:,
+      //  lng:,
+        zoom: 8,
+        noRPG: true,
         selectBar: 
 '<input autofocus type="search" class="form-control noPhone" placeholder="輸入地址以定位地圖"ng-model="loc" ng-change = "askGeo(loc)"/>'
 +'<input type="search" class="form-control noPhone" placeholder="Search" ng-model="key" ng-change = "clearMarker();makeMarkers();"/>'
@@ -58,15 +58,15 @@
         checkList: [],
         whiteList: [],        
         layers: ['公民記者'],
-        urls: ['https://livelink.firebaseio.com/live/'],
+        urls: ['https://skywater.firebaseio.com/sample/.json','https://livelink.firebaseio.com/live/.json'],
         layerIcons: ['https://www.moedict.tw/公.png?font=wt006'],
-        types: ['jsonObj'],
-        logins:['facebook'],
+        types: ['json'],
+        logins:[],
         toFlags: [toFlag],
         toLabels: [toLabel],
+        frames: ['frame2.html','frame2.html'],
+        frameNumber: 4,
         lang:'zh-tw',
-   //     zoom: 13,
-   //     handsize: 40,
         listKeys: ['name','note','address','share','ask'], //'connect_me',
         listKeyNames: {
           name:'名稱',

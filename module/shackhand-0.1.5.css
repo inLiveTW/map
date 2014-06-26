@@ -53,37 +53,33 @@
   position: relative; top: 32px; right:50px;
 }
 
-#skh-frame1 {
+.skh-frame {  
     position: fixed;
-    bottom: 78px;
-    left: 0px;
     width: 25%;
-    height: 40%;
-    z-index: 199999;  
+    height: 32%;
+    z-index: 199999; 
+}
+
+.skh-frame span {
+  background-color: #fff;
+
+}
+
+#skh-frame0 {
+    bottom: 75px;
+    left: 0px; 
+}
+#skh-frame1 {
+    top: 75px;
+    left: 0px;
 }
 #skh-frame2 {
-    position: fixed;
-    top: 78px;
-    left: 0px;
-    width: 25%;
-    height: 40%;
-    z-index: 199999;  
+    top: 75px;
+    right: 0px;
 }
 #skh-frame3 {
-    position: fixed;
-    top: 78px;
+    bottom: 75px;
     right: 0px;
-    width: 25%;
-    height: 40%;
-    z-index: 199999;  
-}
-#skh-frame4 {
-    position: fixed;
-    bottom: 78px;
-    right: 0px;
-    width: 25%;
-    height: 40%;
-    z-index: 199999;  
 }
 
 

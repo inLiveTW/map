@@ -3,7 +3,7 @@
   <head>
   
     <link rel="shortcut icon" href="../favicon.png" />
-    <title>inLiveTW直播地圖 ➭ 朋友就在不遠處</title>
+    <title>inLiveTW公民記者直播地圖</title>
   
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -17,6 +17,9 @@
     <meta property="og:type" content="website" />
     <meta property="og:url" content="http://map.alearn.org.tw/we/index.html" />
     <meta property="og:image" content="http://map.alearn.org.tw/we/img/auto20.jpg" />
+
+
+    <link rel="shortcut icon" href="image/favicon.ico">
 
 <style>
   [ng\:cloak], [ng-cloak], .ng-cloak {
@@ -40,27 +43,10 @@
 
 <body ng-controller="SKH-Ctrl">
 
-
-     <ul id="skh-sidebarUL">
-            <li><span class = "noPhone">近期造訪</span></li>
-            <li ng-repeat = "h in myWatches track by $index" ng-init = "h.nick = h.name.slice(0,1)+'...'" ng-mouseover = "h.nick = h.name"
-  ng-mouseout = "h.nick = h.name.slice(0,1)+'...'">
-              <a ng-click = "focus(h)" ng-href="#{{h.address}}#{{h.name}}" style = "
-  color: #80C345;">                
-                   <img id = "fb"
-                     title = "{{ h.name }}"
-                     ng-src="{{(h.id && 'http://graph.facebook.com/' + h.id + '/picture') || h.icon || ''}}"
-                     class = "small brown noPhone"/>
-                    <span ng-bind = "h.nick"></span>
-              </a>
-              <a ng-click = "toggleWatch(h)" class = "x">×</a>
-            </li>
-        </ul>
-
   <!-- Navbar -->
 
-<div class="navbar navbar-default navbar-fixed-top" role="navigation">
-</div>
+<!-- <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+</div>  -->
 
   <!-- Navbar Bottom -->
 
@@ -83,23 +69,11 @@
 <div>
   <div class="container main-container">
 
-    <div class="row noPhone" ng-cloak>
-        <a ng-click = "focus()"><skh-slogen></skh-slogen></a>
-    </div>
-
-
+    {{scope.currentFrameNum}}
 
     <div class="row">
+          <skh-frame></skh-frame>
           <skh-localmap></skh-localmap>
-    </div>
-
-
-      </div>
-      <div class = "row noPhone">        
-         <skh-list></skh-list>
-      </div>
-
-
     </div>
   </div>
 
@@ -111,10 +85,10 @@
     <script src="module/src/angular.min.js"></script>
     <script src="module/src/angular-route.min.js"></script>
     <script src="module/src/angular-fullscreen.js"></script>
-    <script src="module/src/leaflet.markercluster.js"></script>
 
     <script src="module/src/leaflet-0.7.1.js"></script>
     <script src="module/src/angular-leaflet-directive.js"></script>
+    <script src="module/src/leaflet.markercluster.js"></script>
 
     <link rel="stylesheet" href="module/src/leaflet.css" />    
     <link rel="stylesheet" href="module/src/leaflet.ie.css" /> 

@@ -1,15 +1,3 @@
-Array.prototype.remove = function() {
-    var what, a = arguments, L = a.length, ax;
-    while (L && this.length) {
-        what = a[--L];
-        while ((ax = this.indexOf(what)) !== -1) {
-            this.splice(ax, 1);
-        }
-    }
-    return this;
-};
-
-/*   */
 
 
 var SKH = new Object;
@@ -320,10 +308,12 @@ SKH.init = function(p) {
             }            
         }).filter('toList' ,function(){
             return function(obj) {
+                //bug
                 if (!obj) return [];
                 var array = $.map(obj, function(value, index) {
                     return [value];
                 });
+                console.log(array);
                 return array;
             }
         })
@@ -450,14 +440,25 @@ SKH.init = function(p) {
             return {
                 restrict: 'E',
                 template: 
-                     '<div id = "skh-frame1">'
-                        +'<span ng-show = "!hideFrame" ng-bind = "currentMarker.h.name"></span>'
-                       //    +'<span ng-show = "!hideFrame && currentMarker" ng-bind = "currentMarker.lat"></span>'
-                      //     +'<span ng-show = "!hideFrame && currentMarker" ng-bind = "\',\'"></span>'
-                     //      +'<span ng-show = "!hideFrame && currentMarker" ng-bind = "currentMarker.lng"></span>'
-                    //    +'<span ng-show = "currentMarker.h.name && !currentMarker.h.site">: 無網站</span>'
-                        +'<input type = "checkbox" ng-model = "hideFrame"/>'
-                        +'<iframe class = "noPhone" width="100%" height="100%" ng-show = "!hideFrame" ng-src = "{{frames[0]}}"></iframe>'
+                     '<div id = "skh-frame0" class = "skh-frame">'
+                        +'<span ng-show = "!hideFrame" ng-bind = "currentMarkers[0].h.name"></span>'
+                        +'<input type = "checkbox" ng-model = "hideFrame0"/>'
+                        +'<iframe class = "noPhone" width="100%" height="100%" ng-show = "!hideFrame0" ng-src = "{{frames[0]}}"></iframe>'
+                    +'</div>'
+                    +'<div id = "skh-frame1" class = "skh-frame">'
+                        +'<span ng-show = "!hideFrame" ng-bind = "currentMarkers[1].h.name"></span>'
+                        +'<input type = "checkbox" ng-model = "hideFrame1"/>'
+                        +'<iframe class = "noPhone" width="100%" height="100%" ng-show = "!hideFrame1" ng-src = "{{frames[0]}}"></iframe>'
+                    +'</div>'
+                    +'<div id = "skh-frame2" class = "skh-frame">'
+                        +'<span ng-show = "!hideFrame" ng-bind = "currentMarkers[2].h.name"></span>'
+                        +'<input type = "checkbox" ng-model = "hideFrame2"/>'
+                        +'<iframe class = "noPhone" width="100%" height="100%" ng-show = "!hideFrame2" ng-src = "{{frames[0]}}"></iframe>'
+                    +'</div>'
+                    +'<div id = "skh-frame3" class = "skh-frame">'
+                        +'<span ng-show = "!hideFrame" ng-bind = "currentMarkers[3].h.name"></span>'
+                        +'<input type = "checkbox" ng-model = "hideFrame3"/>'
+                        +'<iframe class = "noPhone" width="100%" height="100%" ng-show = "!hideFrame3" ng-src = "{{frames[0]}}"></iframe>'
                     +'</div>'
 
               }
@@ -471,16 +472,13 @@ SKH.init = function(p) {
                     +'<a ng-click = "askGeo(\'?\')" > <img class = "icon" src="module/src/images/findGeo.png"> </a>'
                 +'</span>'
               +'</span>'
-      //       +'<a ng-hide = "root.name" ng-click = "askGeo(\'?\')"> <img class = "icon center" src="module/src/images/findGeo.png"> </a>'
-      //       +'<a ng-click = "focus(n)" ng-show = "root.name"  style = "cursor:pointer">'
-      //          +'<img id = "fb"  class = "center" ng-src="http://graph.facebook.com/{{root.id || root.username}}/picture"/>'
-      //       +'</a>'
-            
+
              +'<skh-select></skh-select>'
                 + '<a class="btn" ng-click = "isFullscreen = !isFullscreen">'
                     +'<img class = "icon" src = "module/src/images/full-screen.png"></a>'
 
             +'</form>'
+                +'<div ng-hide = "noRPG">'
                     +'<div class = "center" ><a ng-click = "isFullscreen = true; askGeo(\'?\');" style = "display:block; overflow:hidden; width:32px; height:32px;">'                
                     +'<img id = "skh-sprite" src="module/src/images/sprite.png"/>'
               //          +'<span id = "skh-warning" ng-show = "!isFullscreen && !center.lat">若看不到地圖，請點這裡</span>'
@@ -494,10 +492,10 @@ SKH.init = function(p) {
                     +'<span id = "skh-warning" ng-show = "isFullscreen && !moving">點擊地圖一下，開始移動<br></span>'
                     +'<span id = "skh-warning" ng-show = "isFullscreen && !moving">上下左右移動，空白鍵對話</span>'
                     +'</div>'
-
+                +'</div>'
                     
 
-            +'<leaflet event-broadcast="events" center="center" markers = "markers" layers="layers" width="100%" height="'+($( window ).height()+100)+'"></leaflet>'
+            +'<leaflet event-broadcast="events" center="center" markers = "markers" layers="layers" width="100%" height="'+($( window ).height()- 120 )+'"></leaflet>'
         +'</div>'
             }
           }).directive('skhEaglemap',function(){
@@ -582,12 +580,17 @@ SKH.init = function(p) {
             };
 
             $scope.eventDetected = "No events yet...";
+
+            $scope.noRPG = p.noRPG;
+            $scope.frameNumber = p.frameNumber || 1;
+            $scope.currentMarkers = [];
+
             var markerEvents = leafletEvents.getAvailableMarkerEvents();
             for (var k in markerEvents){
                 var eventName = 'leafletDirectiveMarker.' + markerEvents[k];
                 $scope.$on(eventName, function(event, args){
-                    console.log(event);
-                    console.log(args);
+               //     console.log(event);
+               //     console.log(args);
                     $scope.eventDetected = event.name;
                     $scope.eventMarkerIndex = args.markerName;
 
@@ -597,15 +600,24 @@ SKH.init = function(p) {
                         || $scope.eventDetected == "leafletDirectiveMarker.popupopen") { 
 
                        //     $scope.frameUrl = $scope.markers[$scope.eventMarkerIndex].site;                            
-                            if ($scope.currentMarker != $scope.markers[$scope.eventMarkerIndex]) {
-                                $scope.currentMarker = $scope.markers[$scope.eventMarkerIndex];
+                            if ($scope.currentMarkers.indexOf($scope.markers[$scope.eventMarkerIndex]) == -1) {
 
-                                $("#skh-frame1").children('iframe').attr("src",$scope.currentMarker.h.site || p.frames[1]);
+                                var fNum = $scope.currentFrameNum || 0;
+
+                                $scope.currentMarkers[fNum] = $scope.markers[$scope.eventMarkerIndex];
+
+                                $("#skh-frame"+fNum).children('iframe').attr("src",
+                                    ($scope.currentMarkers[fNum].h.site || 
+                                        $scope.currentMarkers[fNum ].h.embaded || 
+                                            $scope.frames[1]));
+
+                                $scope.currentFrameNum = (fNum + 1) % ($scope.frameNumber);
+
                             }
                     }
 
                     if ($scope.eventDetected == "leafletDirectiveMarker.popupopen") {
-                        $scope.toggleWatch($scope.currentMarker.h,'name',1);
+                        $scope.toggleWatch($scope.currentMarkers[0].h,'name',1);
                     }
 
 
@@ -837,7 +849,13 @@ SKH.init = function(p) {
 
           //          console.log($scope.bases[i]);
 
-                    var show = $filter('hideAncient')($scope.bases[i].hands,$scope.hideAncient,$scope.year,$scope.from,$scope.to);
+                    var show = $filter('hideAncient')(
+               //         $filter('toList')($scope.bases[i].hands)
+                        $scope.bases[i].hands,
+                        $scope.hideAncient,
+                        $scope.year,
+                        $scope.from,
+                        $scope.to);
                     
                     $scope.markers = $scope.markers.concat(($filter('toMarkers')(show, ks, maybeHideLatLng, 
                                         expHand,$scope.year,$scope.whichLable, "" + i, $scope.center.zoom)));
@@ -970,29 +988,16 @@ SKH.init = function(p) {
 
                 //for backend static jsons
                 if (type == 'json') {
-                //    for (var i = 0; i < p.jsons.length; i++) {
                             $.getJSON(url,function(data){
-                                    $scope.bases = $scope.bases || [];                
+                                    console.log(data);
+                                    $scope.bases = $scope.bases || [{hands:[]}];            
                                     $scope.bases[n].hands = data;
-                            });
-               //     } 
-                }
-
-
-                if (type == 'jsonObj') {                    
-                            $.getJSON(url,function(data){
-                                    function objToList (obj) {
-                                        var ke = Object.keys(obj);
-                                        var list = [];
-                                        for (var i = 0; i < ke.length; i++) {
-                                            list.push(objke[i]);
-                                        };
-                                        return list.map(function(o){o.address = o.address || o.location; return o});
-                                    }
-                                    $scope.bases = $scope.bases || [];                                                    
-                                    $scope.bases[n].hands = objToList(data);
+                                    $scope.clearMarker();
+                                    $scope.makeMarkers();
+                                    $scope.$apply();
                             });
                 }
+
 
                 //for backend ethercalc using hackfoler format ==> hackmap
                 if (type == 'hackmap') {
@@ -1184,7 +1189,20 @@ SKH.init = function(p) {
                    if (!$scope.qWatch(obj,q)) {
                      $scope.myWatches.push(obj);
                    } else {
-                      if (!sure) $scope.myWatches.remove(obj);
+                      if (!sure) {
+                            $scope.myWatches.remove = function() {
+                                var what, a = arguments, L = a.length, ax;
+                                while (L && this.length) {
+                                    what = a[--L];
+                                    while ((ax = this.indexOf(what)) !== -1) {
+                                        this.splice(ax, 1);
+                                    }
+                                }
+                                return this;
+                            };
+                            $scope.myWatches.remove(obj);
+
+                        }
                    }
                 }
 
