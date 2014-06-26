@@ -8,7 +8,12 @@
 		 "name": "停建核四大遊行427-直播3號",
 		 "latlngColumn": "24.5,121.8",
 		 "embaded" : "http://www.ustream.tv/embed/17895878?v=3&amp;wmode=direct"
-		}
+		},
+	"2" : {
+		"name": "基礎建設快松",
+    	"latlngColumn" : "24.9,121.6",
+		"embaded" : "http://www.youtube.com/embed/wOH-IrJ3Vf4"
+	}
 
 }
 

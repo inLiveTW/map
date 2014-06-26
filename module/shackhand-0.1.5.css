@@ -73,16 +73,25 @@
     top: 75px;
     left: 0px;
 }
-#skh-frame2 {
+
+#skh-frame3 {
     top: 75px;
     right: 0px;
 }
-#skh-frame3 {
+
+#skh-frame2 {
     bottom: 75px;
     right: 0px;
 }
 
 
+.leaflet-control-container {
+  z-index: 299999; 
+}
+
+.leaflet-control-container * {
+  z-index: 299999; 
+}
 
 .leaflet-popup-content-wrapper {
   max-height: 300px;

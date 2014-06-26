@@ -57,7 +57,7 @@
                   +'</select>',
         checkList: [],
         whiteList: [],        
-        layers: ['公民記者'],
+        layers: ['公民記者錄影','公民記者直播'],
         urls: ['https://skywater.firebaseio.com/sample/.json','https://livelink.firebaseio.com/live/.json'],
         layerIcons: ['https://www.moedict.tw/公.png?font=wt006'],
         types: ['json'],
@@ -65,7 +65,7 @@
         toFlags: [toFlag],
         toLabels: [toLabel],
         frames: ['frame2.html','frame2.html'],
-        frameNumber: 4,
+        frameNumber: 3,
         lang:'zh-tw',
         listKeys: ['name','note','address','share','ask'], //'connect_me',
         listKeyNames: {

@@ -455,11 +455,11 @@ SKH.init = function(p) {
                         +'<input type = "checkbox" ng-model = "hideFrame2"/>'
                         +'<iframe class = "noPhone" width="100%" height="100%" ng-show = "!hideFrame2" ng-src = "{{frames[0]}}"></iframe>'
                     +'</div>'
-                    +'<div id = "skh-frame3" class = "skh-frame">'
+             /*       +'<div id = "skh-frame3" class = "skh-frame">'
                         +'<span ng-show = "!hideFrame" ng-bind = "currentMarkers[3].h.name"></span>'
                         +'<input type = "checkbox" ng-model = "hideFrame3"/>'
                         +'<iframe class = "noPhone" width="100%" height="100%" ng-show = "!hideFrame3" ng-src = "{{frames[0]}}"></iframe>'
-                    +'</div>'
+                    +'</div>' */
 
               }
           }).directive('skhLocalmap',function(){
