@@ -44,7 +44,6 @@ SKH.init = function(p) {
                     +'<strong>'+ shack.name+'</strong></a><br />'
 
                     + middle
-
                       
                     +'<hr>'
                     +( shack.note.replace(/\n/g, '<br>')|| "")+'<br />'
@@ -97,7 +96,7 @@ SKH.init = function(p) {
         var lat = parseFloat(latlngColumn.split(',')[0]);
         var lng = parseFloat(latlngColumn.split(',')[1]);
 
-        var r = counter / 1000 * 20;
+        var r = counter / 1000 * 20 * (p.r || 1);
         var theta = counter * Math.PI / 12;
 
         var lngOffSet = r * Math.cos(theta);    // x
@@ -133,10 +132,11 @@ SKH.init = function(p) {
 
             var layerIcons = p.layerIcons || [];
 
-            if (!h.name) return;
+            if (!h.name && !h.title) return;
             if (h.invis) return;
 
             if (hand.site && hand.site.indexOf('http') == -1 && hand.site.indexOf('@') == -1) hand.site = '//' + hand.site;
+
             hand.latlngColumn = hand.latlngColumn.replace('(','').replace(')','').replace('附近','').replace(/near\s?/,''); 
 
             var fbIcon,googIcon,gitIcon,twitIcon,personIcon;
@@ -162,7 +162,7 @@ SKH.init = function(p) {
                 }
             }
 
-            console.log(h.name);
+            console.log(h.name || h.title);
             console.log(llC);
 
             var marker = {
@@ -243,8 +243,11 @@ SKH.init = function(p) {
                 var keys = [ks.key, ks.nameKey, ks.geoKey];
                 var ms = [];                    
                 var autos = angular.copy(list);
+
+
+  //重覆座標的解決  displacement algorithm
+                
                 var mllC = function(h){
-                  //重覆座標的解決  displacement algorithm
                         var counter = 0;
                         for (var j = 0; j < p.latlngUsed.length; j++) {
                             if (p.latlngUsed[j] == h.latlngColumn) counter++ ;
@@ -265,7 +268,16 @@ SKH.init = function(p) {
                             console.log('略過同地址'); continue; 
                         }
 
+                        if (p.defaultLatLng) h.latlngColumn = h.latlngColumn || p.defaultLatLng;
+
+
+                        console.log(h);
+
+
                         var m = p.hToM(keys,h,i,mllC(h),0,0,year,whichLable,whichGroup, zoomNow);
+
+                        console.log(m);
+
 
                         if (m) ms.push(m);
 
@@ -312,31 +324,15 @@ SKH.init = function(p) {
                 if (!obj) return [];
 
                 var ks = Object.keys(obj);
-                var list = [];
+                var list = new Array;
 
                 for (var i = 0; i < ks.length; i++) {
-                    list.push(ks[i]);
+                    list.push(obj[ks[i]]);
                 };
 
                 return list;
             }
-        })
-    /*    .directive('skhFbImg', function(){
-            return {
-                restrict: 'E',
-                link: function(scope, element, attrs){
-
-                    var hand = attrs.hand || '';
-                    var htmlText = '<img id = "' + (hand.id && 'fb') +'}}"'
-  +                    'title = "{{' + hand.name + '}}"'
-  +                    'ng-src="{{(bases[0].hands[total - k].id && \'//graph.facebook.com/\' + bases[0].hands[total - k].id + \'/picture\') || \'img/marker-icon.png\'}}"/>'
-               //         console.log(htmlText);
-                        element.html(htmlText);
-                    }
-                });
-            }
-        })   */
-         .directive('skhWatch', function(){
+        }).directive('skhWatch', function(){
             return {
                 restrict: 'E',
              //   templateUrl: 'module/templates/skhWatch.html'
@@ -449,12 +445,12 @@ SKH.init = function(p) {
                         +'<input type = "checkbox" ng-model = "hideFrame0"/>'
                         +'<iframe class = "noPhone" width="100%" height="100%" ng-show = "!hideFrame0" ng-src = "{{frames[0]}}"></iframe>'
                     +'</div>'
-                    +'<div id = "skh-frame1" class = "skh-frame">'
+                    +'<div id = "skh-frame1" class = "skh-frame" ng-show = "frameNumber > 1">'
                         +'<span ng-show = "!hideFrame" ng-bind = "currentMarkers[1].h.name"></span>'
                         +'<input type = "checkbox" ng-model = "hideFrame1"/>'
                         +'<iframe class = "noPhone" width="100%" height="100%" ng-show = "!hideFrame1" ng-src = "{{frames[0]}}"></iframe>'
                     +'</div>'
-                    +'<div id = "skh-frame2" class = "skh-frame">'
+                    +'<div id = "skh-frame2" class = "skh-frame" ng-show = "frameNumber > 2">'
                         +'<span ng-show = "!hideFrame" ng-bind = "currentMarkers[2].h.name"></span>'
                         +'<input type = "checkbox" ng-model = "hideFrame2"/>'
                         +'<iframe class = "noPhone" width="100%" height="100%" ng-show = "!hideFrame2" ng-src = "{{frames[0]}}"></iframe>'
@@ -603,8 +599,11 @@ SKH.init = function(p) {
                     if ($scope.eventDetected == "leafletDirectiveMarker.mouseover" 
                         || $scope.eventDetected == "leafletDirectiveMarker.popupopen") { 
 
+                            function getLatLng(o){return o.lat + o.lng};
                        //     $scope.frameUrl = $scope.markers[$scope.eventMarkerIndex].site;                            
-                            if ($scope.currentMarkers.indexOf($scope.markers[$scope.eventMarkerIndex]) == -1) {
+                            if ($scope.currentMarkers.map(getLatLng)
+                                .indexOf(getLatLng($scope.markers[$scope.eventMarkerIndex]))
+                                    == -1) {
 
                                 var fNum = $scope.currentFrameNum || 0;
 
@@ -613,7 +612,8 @@ SKH.init = function(p) {
                                 $("#skh-frame"+fNum).children('iframe').attr("src",
                                     ($scope.currentMarkers[fNum].h.site || 
                                         $scope.currentMarkers[fNum ].h.embaded || 
-                                            $scope.frames[1]));
+                                            $scope.currentMarkers[fNum ].h.embed || 
+                                                $scope.frames[1]));
 
                                 $scope.currentFrameNum = (fNum + 1) % ($scope.frameNumber);
 
@@ -855,11 +855,14 @@ SKH.init = function(p) {
 
                     var show = $filter('hideAncient')(
                //         $filter('toList')($scope.bases[i].hands)
-                        $scope.bases[i].hands,
+                        $filter('toList')($scope.bases[i].hands),
                         $scope.hideAncient,
                         $scope.year,
                         $scope.from,
                         $scope.to);
+
+
+                    console.log(show);
                     
                     $scope.markers = $scope.markers.concat(($filter('toMarkers')(show, ks, maybeHideLatLng, 
                                         expHand,$scope.year,$scope.whichLable, "" + i, $scope.center.zoom)));
@@ -994,10 +997,15 @@ SKH.init = function(p) {
 
                 //for backend static jsons
                 if (type == 'json') {
+
+                            $scope.bases = $scope.bases || [];   
+
                             $.getJSON(url,function(data){
                                     console.log(data);
                                     $scope.bases[n] = $scope.bases[n] || [{hands:[]}];            
+                                    
                                     $scope.bases[n].hands = data;
+
                                     $scope.clearMarker();
                                     $scope.makeMarkers();
                                     $scope.$apply();
