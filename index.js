@@ -1,18 +1,3 @@
- (function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = "http://connect.facebook.net/zh_TW/all.js#xfbml=1&appId=485195848253155";
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));
-
-  $.post(
-    'https://graph.facebook.com',
-    {   id: location.href,
-        scrape: true  }, function(response){
-        console.log(response);
-    } 
-  );  // FB API
 
      function toLabel (hand, i, Icon, year, whichLabel) {
         if (!whichLabel) return hand.name || hand.title;
@@ -58,9 +43,9 @@
         checkList: [],
         whiteList: [],        
         layers: ['公民記者錄影','公民記者直播'],
-        urls: ['https://skywater.firebaseio.com/sample/.json','https://livelink.firebaseio.com/live/.json'],
+        urls: ['https://skywater.firebaseio.com/sample/.json','https://livelink.firebaseio.com/live'],
         layerIcons: ['https://www.moedict.tw/公.png?font=wt006','https://www.moedict.tw/直.png?font=wt006'],
-        types: ['json'],
+        types: ['json','firebase'],
         logins:[],
         toFlags: [toFlag],
         toLabels: [toLabel],

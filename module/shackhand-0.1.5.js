@@ -960,6 +960,8 @@ SKH.init = function(p) {
 
                 if (type == 'firebase') {
 
+
+
                     $scope.dataRefs = $scope.dataRefs || [];
                     $scope.dataRefs[n] = new Firebase(url);  
 
@@ -969,7 +971,7 @@ SKH.init = function(p) {
 
                     $scope.bases[n].$on('change', function(){
 
-
+                        console.log("aaa");
                         /* ???  */
 
                         if (typeof($scope.n) == 'undefined' && typeof($scope.bases[n].hands) != 'undefined') $scope.n = $scope.bases[n].hands.length;
@@ -994,7 +996,7 @@ SKH.init = function(p) {
                 if (type == 'json') {
                             $.getJSON(url,function(data){
                                     console.log(data);
-                                    $scope.bases = $scope.bases || [{hands:[]}];            
+                                    $scope.bases[n] = $scope.bases[n] || [{hands:[]}];            
                                     $scope.bases[n].hands = data;
                                     $scope.clearMarker();
                                     $scope.makeMarkers();
@@ -1059,7 +1061,7 @@ SKH.init = function(p) {
                                     if (!shack.latlngColumn) {
 
                                         function backfire(hackUrl, shack) {
-                                                     $.getJSON("//query.yahooapis.com/v1/public/yql?q=select+%2A+from+geo.placefinder+where+text%3D%22"
+                                                     $.getJSON("http://query.yahooapis.com/v1/public/yql?q=select+%2A+from+geo.placefinder+where+text%3D%22"
                                              + encodeURI(shack.address.replace(/\s/g,'')) +"%22+and+locale%3D%22zh_TW%22&format=json", function( d ) {
 
                                                 var lat, lng;
@@ -1252,7 +1254,7 @@ SKH.init = function(p) {
 
             $scope.checkLatLng = function(add,n,k) {
 
-                 $.getJSON("//query.yahooapis.com/v1/public/yql?q=select+%2A+from+geo.placefinder+where+text%3D%22"+ add +"%22+and+locale%3D%22zh_TW%22&format=json", function( d ) {
+                 $.getJSON("http://query.yahooapis.com/v1/public/yql?q=select+%2A+from+geo.placefinder+where+text%3D%22"+ add +"%22+and+locale%3D%22zh_TW%22&format=json", function( d ) {
 
                     var lat, lng;
 
@@ -1323,7 +1325,7 @@ SKH.init = function(p) {
                                     if ($scope.root.hometown) $scope.askGeo($scope.root.hometown);
 
 
-                                $.getJSON('//graph.facebook.com/' + user.id , function(d){
+                                $.getJSON('http://graph.facebook.com/' + user.id , function(d){
                                     console.log(d);
                                     $scope.ttName = d.name + "";
                                     $scope.root.name = d.name + "";
