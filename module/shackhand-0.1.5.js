@@ -14,7 +14,7 @@ SKH.toAge = function (str,year) {
 }
 
 SKH.toHref = function (str) {
-    return (str.indexOf('http') > -1)? str : 'http://' + str;
+    return (str.indexOf('//') > -1)? str : '//' + str;
 } 
 
 
@@ -39,7 +39,7 @@ SKH.init = function(p) {
         return '<div class="flag">'
                     +((shack.site && '<a href = "'+SKH.toHref(shack.site)+'" target = "_blank">'
                       + '<img title = "' + shack.site
-                          +'"src = "http://www.google.com/s2/favicons?domain=' + shack.site +'">' ) || "") 
+                          +'"src = "//www.google.com/s2/favicons?domain=' + shack.site +'">' ) || "") 
 
                     +'<strong>'+ shack.name+'</strong></a><br />'
 
@@ -52,7 +52,7 @@ SKH.init = function(p) {
 
                     +((shack.site && '<a href = "'+SKH.toHref(shack.site)+'" target = "_blank">'
                       + '<img title = "' + shack.site
-                          +'"src = "http://www.google.com/s2/favicons?domain=' + shack.site +'">' ) || "") 
+                          +'"src = "//www.google.com/s2/favicons?domain=' + shack.site +'">' ) || "") 
 
                     +'<strong>'+ shack.name+'</strong></a><br />'
                             
@@ -136,13 +136,13 @@ SKH.init = function(p) {
             if (!h.name) return;
             if (h.invis) return;
 
-            if (hand.site && hand.site.indexOf('http') == -1 && hand.site.indexOf('@') == -1) hand.site = 'http://' + hand.site;
+            if (hand.site && hand.site.indexOf('http') == -1 && hand.site.indexOf('@') == -1) hand.site = '//' + hand.site;
             hand.latlngColumn = hand.latlngColumn.replace('(','').replace(')','').replace('附近','').replace(/near\s?/,''); 
 
             var fbIcon,googIcon,gitIcon,twitIcon,personIcon;
 
             if (hand.id || fbid) {
-                fbIcon = "http://graph.facebook.com/" + (hand.id || fbid) + "/picture";
+                fbIcon = "//graph.facebook.com/" + (hand.id || fbid) + "/picture";
             } else {  fbIcon = "";  }
 
             var icon = (h.img || h.icon || fbIcon || googIcon || gitIcon || twitIcon || personIcon || layerIcons[whichGroup]);
@@ -296,15 +296,15 @@ SKH.init = function(p) {
             return function(str) {
                 if (!str) return "";
                 var ans = "" + str;
-                if (str.indexOf('http://') == -1) {
-                    ans = 'http://' + str;
+                if (str.indexOf('//') == -1) {
+                    ans = '//' + str;
                 }
                 ans = ans.replace('https://','');
                 return ans;
             }
         }).filter('toWiki', function(){
             return function(str,lang) {
-                    return 'http://'+(lang || 'zh')+'.wikipedia.org/wiki/'+str;
+                    return '//'+(lang || 'zh')+'.wikipedia.org/wiki/'+str;
             }            
         }).filter('toList' ,function(){
             return function(obj) {
@@ -325,7 +325,7 @@ SKH.init = function(p) {
                     var hand = attrs.hand || '';
                     var htmlText = '<img id = "' + (hand.id && 'fb') +'}}"'
   +                    'title = "{{' + hand.name + '}}"'
-  +                    'ng-src="{{(bases[0].hands[total - k].id && \'http://graph.facebook.com/\' + bases[0].hands[total - k].id + \'/picture\') || \'img/marker-icon.png\'}}"/>'
+  +                    'ng-src="{{(bases[0].hands[total - k].id && \'//graph.facebook.com/\' + bases[0].hands[total - k].id + \'/picture\') || \'img/marker-icon.png\'}}"/>'
                //         console.log(htmlText);
                         element.html(htmlText);
                     }
@@ -339,7 +339,7 @@ SKH.init = function(p) {
                 template: 
                     '<ul id="skh-sidebarUL" class="nav nav-stacked affix">'
         +  ' <li ng-repeat = "h in myWatches track by $index"> <a ng-click = "focus(h)" ng-href="#{{h.address}}#{{h.name}}"> '
-        +  ' <img id = "fb" title = "{{ h.name }}" ng-src="{{(h.id && \'http://graph.facebook.com/\' + h.id + \'/picture\') || h.icon || \'\'}}"/>'
+        +  ' <img id = "fb" title = "{{ h.name }}" ng-src="{{(h.id && \'//graph.facebook.com/\' + h.id + \'/picture\') || h.icon || \'\'}}"/>'
         +  '<span ng-init = "h.nick = h.name.slice(0,1)" ng-mouseover = "h.nick = h.name" ng-mouseout = "h.nick = h.name.slice(0,1)">'
         +  '<span ng-bind = "h.nick"></span>...</span></a>'
         +  '<a ng-click = "toggleWatch(h)">×</a></li></ul>'
@@ -530,7 +530,7 @@ SKH.init = function(p) {
                   +'<div class = "skh-cell">'
                     +'<a ng-show = "$index == 0"'
                      +'ng-click = "focus(h)" style = "cursor:pointer" title="{{h.name}}">'
-                    +'<img id = "{{ (h.id && \'fb\') || \'wiki\'}}" ng-src="{{(h.id && \'http://graph.facebook.com/\' + h.id + \'/picture\') || h.img || \'img/marker-icon.png\'}}"/>'
+                    +'<img id = "{{ (h.id && \'fb\') || \'wiki\'}}" ng-src="{{(h.id && \'//graph.facebook.com/\' + h.id + \'/picture\') || h.img || \'img/marker-icon.png\'}}"/>'
                     +'<br>'
                   +'</a>'
                     +'<div>{{h[k]}}</div>'
@@ -564,8 +564,8 @@ SKH.init = function(p) {
 
             if(navigator.appName == 'Microsoft Internet Explorer') {
                 if (confirm("IE瀏覽器不支援，請改用Firefox或Chrome")) {
-                    window.open('http://moztw.org/firefox/');
-                    window.open('http://www.google.com.tw/intl/zh-TW/chrome/browser/');
+                    window.open('//moztw.org/firefox/');
+                    window.open('//www.google.com.tw/intl/zh-TW/chrome/browser/');
                 }
             }
 
@@ -775,7 +775,7 @@ SKH.init = function(p) {
                         openStreetMap: {
                             name: 'OpenStreetMap',
                             type: 'xyz',
-                            url: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+                            url: '//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
                         }
                     },
                     overlays: {
@@ -889,7 +889,7 @@ SKH.init = function(p) {
                     return;
                 }
 
-                $.getJSON("http://query.yahooapis.com/v1/public/yql?q=select+%2A+from+geo.placefinder+where+text%3D%22"+ encodeURI(place) +"%22+and+locale%3D%22zh_TW%22&format=json", function( d ) {
+                $.getJSON("//query.yahooapis.com/v1/public/yql?q=select+%2A+from+geo.placefinder+where+text%3D%22"+ encodeURI(place) +"%22+and+locale%3D%22zh_TW%22&format=json", function( d ) {
 
             //        console.log(d);
                     var lat, lng;
@@ -1055,7 +1055,7 @@ SKH.init = function(p) {
                                     if (!shack.latlngColumn) {
 
                                         function backfire(hackUrl, shack) {
-                                                     $.getJSON("http://query.yahooapis.com/v1/public/yql?q=select+%2A+from+geo.placefinder+where+text%3D%22"
+                                                     $.getJSON("//query.yahooapis.com/v1/public/yql?q=select+%2A+from+geo.placefinder+where+text%3D%22"
                                              + encodeURI(shack.address.replace(/\s/g,'')) +"%22+and+locale%3D%22zh_TW%22&format=json", function( d ) {
 
                                                 var lat, lng;
@@ -1248,7 +1248,7 @@ SKH.init = function(p) {
 
             $scope.checkLatLng = function(add,n,k) {
 
-                 $.getJSON("http://query.yahooapis.com/v1/public/yql?q=select+%2A+from+geo.placefinder+where+text%3D%22"+ add +"%22+and+locale%3D%22zh_TW%22&format=json", function( d ) {
+                 $.getJSON("//query.yahooapis.com/v1/public/yql?q=select+%2A+from+geo.placefinder+where+text%3D%22"+ add +"%22+and+locale%3D%22zh_TW%22&format=json", function( d ) {
 
                     var lat, lng;
 
@@ -1319,7 +1319,7 @@ SKH.init = function(p) {
                                     if ($scope.root.hometown) $scope.askGeo($scope.root.hometown);
 
 
-                                $.getJSON('http://graph.facebook.com/' + user.id , function(d){
+                                $.getJSON('//graph.facebook.com/' + user.id , function(d){
                                     console.log(d);
                                     $scope.ttName = d.name + "";
                                     $scope.root.name = d.name + "";
@@ -1400,7 +1400,7 @@ SKH.init = function(p) {
 
                 if (!target) target = 'hands';
 
-                $.getJSON("http://query.yahooapis.com/v1/public/yql?q=select+%2A+from+geo.placefinder+where+text%3D%22"+ $scope.root.address +"%22+and+locale%3D%22zh_TW%22&format=json", function( d ) {
+                $.getJSON("//query.yahooapis.com/v1/public/yql?q=select+%2A+from+geo.placefinder+where+text%3D%22"+ $scope.root.address +"%22+and+locale%3D%22zh_TW%22&format=json", function( d ) {
                     
                     var whiteList = p.whiteList || [];
                     var checkList = p.checkList || [];
