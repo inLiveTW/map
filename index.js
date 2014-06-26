@@ -47,7 +47,7 @@
         layerIcons: ['https://www.moedict.tw/直.png?font=wt006'], //, 'https://www.moedict.tw/錄.png?font=wt006'],
         types: ['json','json'], //'firebase'
         logins:[],
-        defaultLatLng: "24.9,121.8",
+        defaultLatLng: "23.9,120.9",
         toFlags: [toFlag,toFlag],
         toLabels: [toLabel,toLabel],
         frames: ['frame2.html','frame2.html'],
