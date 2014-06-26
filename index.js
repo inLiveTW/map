@@ -59,7 +59,7 @@
         whiteList: [],        
         layers: ['公民記者錄影','公民記者直播'],
         urls: ['https://skywater.firebaseio.com/sample/.json','https://livelink.firebaseio.com/live/.json'],
-        layerIcons: ['https://www.moedict.tw/公.png?font=wt006'],
+        layerIcons: ['https://www.moedict.tw/公.png?font=wt006','https://www.moedict.tw/直.png?font=wt006'],
         types: ['json'],
         logins:[],
         toFlags: [toFlag],
