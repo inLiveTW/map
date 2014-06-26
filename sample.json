@@ -2,23 +2,23 @@
 	"0": {
 		 "name": "全面罷免公民論壇 - 台中首發場",
 		 "latlngColumn": "23.8,120.9",
-		 "embaded" : "http://www.ustream.tv/embed/recorded/46575457?v=3&amp;wmode=direct"
+		 "embaded" : "//www.ustream.tv/embed/recorded/46575457?v=3&amp;wmode=direct"
 		},
 	"1": {
 		 "name": "停建核四大遊行427-直播3號",
 		 "latlngColumn": "24.5,121.8",
-		 "embaded" : "http://www.ustream.tv/embed/17895878?v=3&amp;wmode=direct"
+		 "embaded" : "//www.ustream.tv/embed/17895878?v=3&amp;wmode=direct"
 		},
 	"2" : {
 		"name": "基礎建設快松",
     	"latlngColumn" : "24.9,121.6",
-		"embaded" : "http://www.youtube.com/embed/wOH-IrJ3Vf4"
+		"embaded" : "//www.youtube.com/embed/wOH-IrJ3Vf4"
 	},
 
 	"3" : {
 		"name": "公民記者Sean",
 		 "latlngColumn": "24.4,121.6",
-		"embaded" : "http://www.ustream.tv/embed/recorded/49184573?v=3&amp;wmode=direct"
+		"embaded" : "//www.ustream.tv/embed/recorded/49184573?v=3&amp;wmode=direct"
 	}
 
 }
