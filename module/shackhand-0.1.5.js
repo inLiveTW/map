@@ -308,13 +308,17 @@ SKH.init = function(p) {
             }            
         }).filter('toList' ,function(){
             return function(obj) {
-                //bug
+                if (typeof(obj) == "array") return obj;
                 if (!obj) return [];
-                var array = $.map(obj, function(value, index) {
-                    return [value];
-                });
-                console.log(array);
-                return array;
+
+                var ks = Object.keys(obj);
+                var list = [];
+
+                for (var i = 0; i < ks.length; i++) {
+                    list.push(ks[i]);
+                };
+
+                return list;
             }
         })
     /*    .directive('skhFbImg', function(){
