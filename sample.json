@@ -13,6 +13,12 @@
 		"name": "基礎建設快松",
     	"latlngColumn" : "24.9,121.6",
 		"embaded" : "http://www.youtube.com/embed/wOH-IrJ3Vf4"
+	},
+
+	"3" : {
+		"name": "公民記者Sean",
+		 "latlngColumn": "24.4,121.6",
+		"embaded" : "http://www.ustream.tv/embed/recorded/49184573?v=3&amp;wmode=direct"
 	}
 
 }

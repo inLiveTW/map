@@ -15,12 +15,12 @@
   );  // FB API
 
      function toLabel (hand, i, Icon, year, whichLabel) {
-        if (!whichLabel) return hand.title;
+        if (!whichLabel) return hand.name || hand.title;
         var lable = " ";
         
         switch (whichLabel) {
           case 'name':
-              lable += ((hand.title && hand.title) || "");
+              lable += ((hand.name || hand.title) || "");
           default:
               break;
 
