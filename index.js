@@ -1,11 +1,11 @@
 
      function toLabel (hand, i, Icon, year, whichLabel) {
-        if (!whichLabel) return ((hand.name || hand.title || "") + '(' + hand.location + ')' );;
+        if (!whichLabel) return ((hand.name || hand.title || "") + '(' + (hand.location || '') + ')' );;
         var lable = " ";
         
         switch (whichLabel) {
           case 'location':
-            return hand.location;
+            return (hand.location || '');
           default:
               break;
 
