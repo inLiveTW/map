@@ -240,6 +240,7 @@ SKH.init = function(p) {
             }
         }).filter('toMarkers', function(){
             return function (list, ks, maybeHideLatLng, expHand, year, whichLable, whichGroup, zoomNow) {
+
                 var keys = [ks.key, ks.nameKey, ks.geoKey];
                 var ms = [];                    
                 var autos = angular.copy(list);
@@ -268,39 +269,15 @@ SKH.init = function(p) {
                             console.log('略過同地址'); continue; 
                         }
 
-                        if (p.defaultLatLng) h.latlngColumn = h.latlngColumn || p.defaultLatLng;
-
-
-                        console.log(h);
-
+                        // noLatLng
+                        if (p.defaultLatLng && !h.latlngColumn)  h.latlngColumn = h.latlngColumn || p.defaultLatLng;
 
                         var m = p.hToM(keys,h,i,mllC(h),0,0,year,whichLable,whichGroup, zoomNow);
-
-                        console.log(m);
-
 
                         if (m) ms.push(m);
 
                     };
-
-                    // old Friends feature //
-                    for (var i = 0; i < (autos.length || 0); i++) {
-                        var h = autos[i] || {};
-
-                        if (h.friends) {
-                            for (var j = 0; j < h.friends.length; j++) {
-                                var f= f.friends[j];
-
-                                if (!f) { console.log('略過空格'); continue; }
-                                if (maybeHideLatLng && isClose(f.latlngColumn,maybeHideLatLng) && f.id != expHand.id) { 
-                                    console.log('略過同地址'); continue;
-                                }
-                            
-                                ms.push(p.hToM(keys,f, i, mllC(f), f.name, f.id, year, whichLable,whichGroup, zoomNow));   
-                            };              
-                        }       
-                    }; 
-                    // old Friends feature End//
+                
                 }
                 return ms;
             };
