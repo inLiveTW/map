@@ -590,6 +590,7 @@ SKH.init = function(p) {
                                     ($scope.currentMarkers[fNum].h.site || 
                                         $scope.currentMarkers[fNum ].h.embaded || 
                                             $scope.currentMarkers[fNum ].h.embed || 
+                                       //         $scope.currentMarkers[fNum ].h.url || 
                                                 $scope.frames[1]));
 
                                 $scope.currentFrameNum = (fNum + 1) % ($scope.frameNumber);
@@ -925,13 +926,13 @@ SKH.init = function(p) {
                 var login = (p.logins && p.logins[n]) || undefined;
                 var toFlag = (p.toFalgs && p.toFlags[n]) || undefined;
                 var toLabel = (p.toLables && p.toLables[n]) || undefined;
-                var visible;  try {visible = p.visibles[n]} catch(err) {};
+                var visible = true;  try {visible = !p.hides[n]} catch(err) {};
 
                 $scope.layers.overlays = $scope.layers.overlays || {};
                 $scope.layers.overlays[n] = {
                             type: 'group',
                             name: (title || 'hands'),
-                            visible: (visible || true)
+                            visible: visible
                         };
 
                   // for backend firebase

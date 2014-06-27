@@ -28,6 +28,16 @@
             return flag;
      }
 
+    function toFlag1(hand, i, Icon) {
+         var flag =  '<div class = "flag">'
+
+                      + '<a href = "'+hand.url+'" target = "_blank">'+(hand.title || hand.name)+'</a>'
+
+                      +'</div>';
+            return flag;
+     }
+     
+
      SKH.init({
       //  lat:,
       //  lng:,
@@ -45,12 +55,13 @@
         checkList: [],
         whiteList: [],        
         layers: ['公民記者直播','公民記者錄影'],
-        urls: ['https://livelink.firebaseio.com/live/.json'], //,'https://skywater.firebaseio.com/sample/.json'], //'https://livelink.firebaseio.com/live'
-        layerIcons: ['https://www.moedict.tw/直.png?font=wt006'], //, 'https://www.moedict.tw/錄.png?font=wt006'],
+        hides: [0,1],
+        urls: ['https://livelink.firebaseio.com/live/.json','https://livelink.firebaseio.com/channel/.json'], //,'https://skywater.firebaseio.com/sample/.json'], //'https://livelink.firebaseio.com/live'
+        layerIcons: ['https://www.moedict.tw/直.png?font=wt006','https://www.moedict.tw/錄.png?font=wt006'], //, 'https://www.moedict.tw/錄.png?font=wt006'],
         types: ['json','json'], //'firebase'
         logins:[],
         defaultLatLng: "23.9,120.9",
-        toFlags: [toFlag,toFlag],
+        toFlags: [toFlag,toFlag1],
         toLabels: [toLabel,toLabel],
         frames: ['frame2.html','frame2.html'],
         frameNumber: 3,
