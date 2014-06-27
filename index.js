@@ -1,11 +1,11 @@
 
      function toLabel (hand, i, Icon, year, whichLabel) {
-        if (!whichLabel) return hand.name || hand.title;
+        if (!whichLabel) return ((hand.name || hand.title || "") + '(' + hand.location + ')' );;
         var lable = " ";
         
         switch (whichLabel) {
-          case 'name':
-              lable += ((hand.name || hand.title) || "");
+          case 'location':
+            return hand.location;
           default:
               break;
 
@@ -21,6 +21,8 @@
          var flag =  '<div class = "flag">'
 
                       + (hand.title || hand.name)
+                      + '<hr>'
+                      + hand.location
 
                       +'</div>';
             return flag;
@@ -38,7 +40,7 @@
         +'<select class = "form-control"'
                     +'ng-model="whichLable" ng-change = "clearMarker();makeMarkers()">'
                       +'<option value="">-- 選擇顯示標籤 --</option>'
-                      +'<option value="group">團體</option>'
+                      +'<option value="location">地點</option>'
                   +'</select>',
         checkList: [],
         whiteList: [],        
@@ -52,7 +54,7 @@
         toLabels: [toLabel,toLabel],
         frames: ['frame2.html','frame2.html'],
         frameNumber: 3,
-        r: 50,
+        r: 25,
         lang:'zh-tw',
         listKeys: ['name','note','address','share','ask'], //'connect_me',
         listKeyNames: {
