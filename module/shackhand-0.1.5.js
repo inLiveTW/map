@@ -312,7 +312,6 @@ SKH.init = function(p) {
         }).directive('skhWatch', function(){
             return {
                 restrict: 'E',
-             //   templateUrl: 'module/templates/skhWatch.html'
                 template: 
                     '<ul id="skh-sidebarUL" class="nav nav-stacked affix">'
         +  ' <li ng-repeat = "h in myWatches track by $index"> <a ng-click = "focus(h)" ng-href="#{{h.address}}#{{h.name}}"> '
@@ -442,7 +441,7 @@ SKH.init = function(p) {
           }).directive('skhLocalmap',function(){
             return {
                 restrict: 'E',
-                template: '<div class="col-md-12" id = "local" fullscreen="isFullscreen" only-watched-property>'
+                template: '<div id = "local" fullscreen="isFullscreen" only-watched-property>'
              +'<form class="form-inline form-down" role="search">'
               +'<span ng-hide = "true">'
                 +'<span ng-repeat = "k in [0,1,2,3]">'           
@@ -908,7 +907,8 @@ SKH.init = function(p) {
        
                 if (h && h.length > 1) {
                     $timeout(function(){
-                        var firstMapOffset = $("#local").position().top || $("#eagle").position().top || 0;
+                        var firstMapOffset = ($("#local").position() && $("#local").position().top)
+                         || ($("#eagle").position() && $("#eagle").position().top) || 0;
                         $("body,html").animate({scrollTop:firstMapOffset + 50}, "slow");
                     }, 2000);
                 }
@@ -1200,7 +1200,8 @@ SKH.init = function(p) {
 
             $scope.focus = function(hand) {
 
-                var firstMapOffset = $("#local").position().top || $("#eagle").position().top || 0;
+                var firstMapOffset = ($("#local").position() && $("#local").position().top)
+                         || ($("#eagle").position() && $("#eagle").position().top) || 0;
                 $("body,html").animate({scrollTop:firstMapOffset}, "slow");
 
                 $scope.toggleWatch(hand, 'name', 1);
