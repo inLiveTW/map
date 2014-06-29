@@ -30,13 +30,18 @@
 
     function toFlag1(hand, i, Icon) {
          var flag =  '<div class = "flag">'
-
                       + '<a href = "'+hand.url+'" target = "_blank">'+(hand.title || hand.name)+'</a>'
-
                       +'</div>';
             return flag;
      }
      
+    function toFlagEvent(hand, i, Icon) {
+         var flag =  '<div class = "flag">'
+                      + '<a href = "'+hand.link+'" target = "_blank">'+(hand.title || hand.name)+'</a>'
+                      +'</div>';
+            return flag;
+     }
+
 
      SKH.init({
       //  lat:,
@@ -54,16 +59,25 @@
                   +'</select>',
         checkList: [],
         whiteList: [],        
-        layers: ['公民記者直播','公民記者錄影'],
-        hides: [0,1],
-        urls: ['https://livelink.firebaseio.com/live/.json','https://livelink.firebaseio.com/channel/.json'], //,'https://skywater.firebaseio.com/sample/.json'], //'https://livelink.firebaseio.com/live'
-        layerIcons: ['https://www.moedict.tw/直.png?font=wt006','https://www.moedict.tw/錄.png?font=wt006'], //, 'https://www.moedict.tw/錄.png?font=wt006'],
-        types: ['json','json'], //'firebase'
+        layers: ['公民記者直播','公民記者事件','公民記者頻道'],
+        hides: [0,1,1],
+        urls: [
+              'https://livelink.firebaseio.com/live/.json',
+              'https://livelink.firebaseio.com/channel/.json',
+              'https://livelink.firebaseio.com/event/.json'], //,'https://skywater.firebaseio.com/sample/.json'], //'https://livelink.firebaseio.com/live'
+        layerIcons: [
+                    'https://www.moedict.tw/直.png?font=wt006',                    
+                    'https://www.moedict.tw/事.png?font=wt006',
+                    'https://www.moedict.tw/頻.png?font=wt006'], //, 'https://www.moedict.tw/錄.png?font=wt006'],
+        types: ['json','json','json'], //'firebase'
         logins:[],
         defaultLatLng: "23.9,120.9",
-        toFlags: [toFlag,toFlag1],
-        toLabels: [toLabel,toLabel],
-        frames: ['frame2.html','frame2.html'],
+        toFlags: [
+           toFlag,
+           toFlagEvent,
+           toFlag1],
+        toLabels: [toLabel,toLabel,toLabel],
+        frames: ['frame2.html','frame2.html','frame2.html'],
         frameNumber: 3,
         r: 25,
         lang:'zh-tw',
