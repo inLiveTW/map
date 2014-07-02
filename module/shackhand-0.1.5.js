@@ -586,10 +586,10 @@ SKH.init = function(p) {
                                 $scope.currentMarkers[fNum] = $scope.markers[$scope.eventMarkerIndex];
 
                                 $("#skh-frame"+fNum).children('iframe').attr("src",
-                                    ($scope.currentMarkers[fNum].h.site || 
-                                        $scope.currentMarkers[fNum ].h.embaded || 
-                                            $scope.currentMarkers[fNum ].h.embed || 
-                                       //         $scope.currentMarkers[fNum ].h.url || 
+                                    ($scope.currentMarkers[fNum ].h.embaded || 
+                               $scope.currentMarkers[fNum ].h.embed || 
+                        $scope.currentMarkers[fNum].h.site || 
+                               //         $scope.currentMarkers[fNum ].h.url || 
                                                 $scope.frames[1]));
 
                                 $scope.currentFrameNum = (fNum + 1) % ($scope.frameNumber);
@@ -873,11 +873,9 @@ SKH.init = function(p) {
                     return;
                 }
 
-                $.getJSON("//query.yahooapis.com/v1/public/yql?q=select+%2A+from+geo.placefinder+where+text%3D%22"+ encodeURI(place) +"%22+and+locale%3D%22zh_TW%22&format=json", function( d ) {
-
+                $.getJSON("http://query.yahooapis.com/v1/public/yql?q=select+%2A+from+geo.placefinder+where+text%3D%22"+ encodeURI(place) +"%22+and+locale%3D%22zh_TW%22&format=json", function( d ) {
             //        console.log(d);
                     var lat, lng;
-
                     try {
                      lat = d.query.results.Result[0].latitude;
                      lng = d.query.results.Result[0].longitude;

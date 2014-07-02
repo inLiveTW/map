@@ -63,7 +63,7 @@ console.log('%c拆政府 原地重建', 'font-size:100px;color:#fff;text-shadow:
         layers: ['公民記者直播','公民記者事件','公民記者頻道'],
         hides: [0,1,1],
         urls: [
-              'https://livelink.firebaseio.com/live/.json',
+              'https://twlive.firebaseio.com/live/.json',
               'https://livelink.firebaseio.com/channel/.json',
               'https://livelink.firebaseio.com/event/.json'], //,'https://skywater.firebaseio.com/sample/.json'], //'https://livelink.firebaseio.com/live'
         layerIcons: [
