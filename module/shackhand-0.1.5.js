@@ -1387,11 +1387,11 @@ SKH.init = function(p) {
                 }
             }
 
-            $scope.submit = function (verb,target) {
+             $scope.submit = function (verb,target) {
 
-                if (!target) target = 'hands';
+                if (!target) target = 0;
 
-                $.getJSON("//query.yahooapis.com/v1/public/yql?q=select+%2A+from+geo.placefinder+where+text%3D%22"+ $scope.root.address +"%22+and+locale%3D%22zh_TW%22&format=json", function( d ) {
+                $.getJSON("http://query.yahooapis.com/v1/public/yql?q=select+%2A+from+geo.placefinder+where+text%3D%22"+ $scope.root.address +"%22+and+locale%3D%22zh_TW%22&format=json", function( d ) {
                     
                     var whiteList = p.whiteList || [];
                     var checkList = p.checkList || [];
@@ -1421,11 +1421,11 @@ SKH.init = function(p) {
 
                     var n = $scope.n;
 
-                    if (!$scope.base[target] || 
-                        !$scope.base[target][n] || 
-                        $scope.base[target][n].id == $scope.root.id || 
-                        $scope.base[target][n].name == $scope.root.name ||
-                        $scope.base[target][n].username == $scope.root.username)  {
+                    if (!$scope.bases[target].hands || 
+                        !$scope.bases[target].hands[n] || 
+                        $scope.bases[target].hands[n].id == $scope.root.id || 
+                        $scope.bases[target].hands[n].name == $scope.root.name ||
+                        $scope.bases[target].hands[n].username == $scope.root.username)  {
                        
                         if (checkList) {
                             for (var i = 0; i < checkList.length; i++) {
@@ -1447,13 +1447,15 @@ SKH.init = function(p) {
                                 if (!$scope.root[w] || $scope.root[w] == 'undefined') $scope.root[w] = "";
                         };
 
-                        $scope.base.$child(target).$child(n).$set(angular.copy($scope.root));
-                        $scope.base[target][n] = angular.copy($scope.root);
 
-                        var a = {"zh-tw" : "成功!!\n\n將此網址貼上圖鴨牆以介紹在地朋友:\n"
-                            + window.location.href + '#' + $scope.root.address + "\n\n歡迎隨時回來更新!!",
-                                   en : "successed! you're welcome to modify your flag any time"}[p.lang];
-                        window.alert((verb[p.lang] + a) || a);
+                        console.log($scope.bases[target].hands[n]);
+
+                        $scope.bases[target].$child('hands').$child(n).$set(angular.copy($scope.root));
+                        $scope.bases[target].hands[n] = angular.copy($scope.root);
+
+                        var a = "成功!!\n\n將此網址貼上圖鴨牆以介紹在地朋友:\n"
+                            + window.location.href + '#' + $scope.root.address + "\n\n歡迎隨時回來更新!!";
+                        window.alert((verb + a) || a);
                     
 
                     } else {
